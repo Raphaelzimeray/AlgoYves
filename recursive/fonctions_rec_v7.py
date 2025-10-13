@@ -275,5 +275,62 @@ print("test de la fonction dec to binary", dec_to_binary_rec(11))
 
 # Exercice 13 : Vérifier qu'un nombre est premier
 
+# Un nombre premier est un nombre divisible uniquement par un ou par lui même : 2, 3, 5, 7, 11, 13, 17, 19,
+
+# donc on peut faire un algo qui vérifie si le nombre est divisible par un ou par lui même.
+# Qu'est ce qui fait qu'un nombre est premier c'est si je le divise par autre chose que 1 ou lui même, le chiffre sera à virgule
+# Quand on prend l'exemple de 11, on voit que seuls 11%1 et 11%11 retournent 0, tout le reste retourne un chiffre.
+# Donc pour qu'un nombre soit premier il faut que toutes les divisions qu'on effectue entre 1 et lui même retournent un reste
+# != 0. Sinon ca veut dire que la condition n'est pas respectée
+
+def is_prime(n):
+    modulo_test = 2
+    for i in range(n-2):
+        if n% modulo_test == 0:
+            return False
+        modulo_test +=1
+    return True
+
+print("test de la fonction is_prime ", is_prime(20))
+
+
+
+
+# Version Yves avec l'itérateur py
+
+def is_prime2(n):
+    if n <2:
+        return False
+    for modulo_test in range(2,n):
+        if n%modulo_test == 0:
+            return False
+    return True
+
+
+
 
 # Exercice 14 : Code Wars : Tiling Rectangles With squares
+
+# Exemple avec 21 de largeur et 11 de hauteur
+
+# EXECUTION 1 def num_tiles(11, 21):
+# Je prend le coté le plus petit du rectangle.
+# Tant que le chiffre n puissance 2 < plus petit coté, je continue de boucler (while)
+# je récupère n-1 (je suis allé une étape trop haut), exemple 2 ^ 3 = 8 <= 11 je continue, 2 ^4 = 16 <= 11 donc c'est le 2^4 que
+# je dois prendre n-1 (3)
+# 8x8. ensuite je me pose la question de combien de carrés je peux mettre dans le plus grand coté
+# parce que je peux en mettre qu'un seul dans le plus petit coté, sinon c'est qu'il y a un erreur de puissance
+# j'ai une puissance trop basse
+# division entière de plus grand coté // longeur du carré actuelle
+# 21 // 8 => 2 je peux mettre 2 carrés. et il reste 5.
+# Je dois ensuite faire le calcul de l'espace qui me reste pour disposer les carrés suivants
+# pour calculer l'espace restant, je calcul le % de plus petit coté % taille du carré (11%8) =>3,
+# et le % de plus grand coté % taille du carré (21%8) => 5
+# j'appelle la fonction récursive avec ces nouveaux paramètres num_tiles(3,5)
+
+# RÉCURSION 1 - EXECUTION 2 - j'appelle la fonction récursive avec ces nouveaux paramètres num_tiles(3,5)
+# Tant que le chiffre n puissance 2 < plus petit coté, je continue de boucler (while)
+# Je récupère n-1 car je suis allé une étape trop haut. Ici 1 ^ 2 <= 2 => 2 <= 3 ok 2 ^2 <= 3 pas ok 3 <= 4 = false
+# donc je retourne n-1 => 1 ^2
+# ok dans l'image de l'énoncé je vois qu'il y a deux carrés de 4. Ca veut dire qu'il faut prendre la seconde fois le coté le plus
+# grand du rectangle en référence pour calculer la taille du ou dés carrès que l'on va insérer à l'intérieur
