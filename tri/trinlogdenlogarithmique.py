@@ -25,7 +25,7 @@
 # l'appel des fonctions triFusion avec les deux moitiés de tableau
 # on retourne interclasser(Trifusion([76]), Trifusion([2]))
 
-# RECURSION 2.1 - EXECUTION 2.1 => Trifusion([76]). on rentre dans la condtion d'arret
+# RECURSION 2.1 - EXECUTION 2.1 => Trifusion([76]). on rentre dans la condition d'arret
 # on retoune le tableau T [76].
 
 # RÉCURSION 2.2 - EXECUTION 2.2 => Trifusion([2]). on rentre dans la condition d'arret
@@ -286,6 +286,7 @@ Y = []
 #     Y.append(stop - start)
 
 # plt.plot(X,Y,label='tri à bulle v2')
+
 
 print("debut tri fusion")
 

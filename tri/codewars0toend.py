@@ -112,7 +112,7 @@ def move_zeros(lst):
 
 tab_test = [1, 0, 1, 2, 0, 1, 3]
 
-def move_zeros_2(lst):
+def move_zeros(lst):
     tab_zeros = []
     tab_not_zeros = []
     for i in range(len(lst)):
@@ -125,6 +125,57 @@ def move_zeros_2(lst):
     joined_tab = tab_not_zeros + tab_zeros
     return joined_tab
 
-move_zeros_2(tab_test)
+move_zeros(tab_test)
 
-print("test de la fonction move zeros 2", move_zeros_2(tab_test))
+print("test de la fonction move zeros ", move_zeros(tab_test))
+
+
+# ok tout marche !
+
+
+# Version avec pop et append
+
+def move_zeros_2(lst):
+    print(lst)
+    k = len(lst)-1
+    i = 0
+    while i < k:
+        if lst[i]==0:
+            lst.pop(i)
+            lst.append(0)
+            k -= 1
+        print(lst)
+        if lst[i] != 0:
+            i+=1
+    return lst
+
+
+def move_zeros_3(lst:list):
+    # return [n for n in lst if n != 0]+ [n for n in lst if n == 0]
+    return [n for n in lst if n != 0]+ [0] * lst.count(0)
+
+
+# Créer des listes en python. Je sais afficher les éléments de 0 à 10
+tab_test = [1, 0, 1, 2, 0, 1, 3]
+
+
+l1 = [i for i in tab_test if i != 0]
+print(l1)
+l2 = [i for i in tab_test if i == 0]
+print(l2)
+l3 = l1 + l2
+print(l3)
+l4 = [0] * 5
+print(l4)
+
+
+# Sort the odd
+
+def sort_array(source_array):
+    print(source_array)
+    odd_list = [i for i in source_array if i %2 != 0]
+    odd_list.sort()
+    for k, v in enumerate(source_array):
+        if v%2 != 0:
+            source_array[k] = odd_list.pop(0)
+    return source_array
