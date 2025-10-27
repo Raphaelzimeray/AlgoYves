@@ -5,36 +5,334 @@ from time import sleep
 # Exercice 1 : je fourni en paramètre deux années croisantes, et je veux que ca affiche les années qui vont de l’une à l’autre.
 # Fonction récursive à deux paramètres. Comment je fais pour réduire. 1970… 2020.
 
+def print_years_rec(year_1, year_2):
+    if year_1 > year_2:
+        print("Terminé")
+    else:
+        print(year_1)
+        return print_years_rec(year_1 + 1, year_2)
 
+
+print("test de print years rec", print_years_rec(1978, 2025))
+
+# ok
 
 # Exercice 2 : fonction récursive qui calcule 2 puissance 3 la puissance énième. Fonction a deux paramètres, 2 et n.
+
+def power_rec(n, p):
+    if p == 1:
+        return n
+    else:
+        return n * power_rec(n, p -1)
+
+
+print("test de power rec", power_rec(2,5))
+
+# ok
+
+# Décomposition avec 2^5
+
+# EXECUTION 1 : power_rec(2,5)
+# p == 1 => 5 == 1, cette condition renvoie false, je passe dans le else
+# je retourne n * power_rec(n, p -1) => 2 * power_rec(2, 4)
+
+# RÉCURSION 1 - EXECUTION 2 : power_rec(2, 4)
+# p == 1 => 4 == 1, cette condition renvoie false, je passe dans le else
+# je retourne n * power_rec(n, p -1) => 2 * power_rec(2, 3)
+
+# RÉCURSION 2 - EXECUTION 3 : power_rec(2, 3)
+# p == 1 => 3 == 1, cette condition renvoie false, je passe dans le else
+# je retourne n * power_rec(n, p-1) => 2 * power_rec(2, 2)
+
+# RÉCURSION 3 - EXECUTION 4 : power_rec(2, 2)
+# p == 1 => 2 == 2, cette condition renvoie false, je passe dans le else
+# je retourne n * power_rec(n, p-1) => 2 * power_rec(2, 1)
+
+# RÉCURSION 4 - EXECUTION 5 : power_rec(2, 1)
+# p == 1 => 1 == 1, cette condition renvoie true, je retourne n (2)
+
+# RETOUR RÉCURSION 3 - EXECUTION 4 : power_rec(2, 2)
+# je suis fixé sur la valeur de power_rec(2, 1), c'est 2.
+# donc 2 * 2 = 4
+
+# RETOUR RÉCURSION 2 - EXECUTION 3 : power_rec(2, 3)
+# je suis fixé sur la valeur de power_rec(2, 2), c'est 4
+# donc 2 * 4 = 8
+
+# RETOUR RÉCURSION 1 - EXECUTION 2 : power_rec(2, 4)
+# je suis fixé sur la valeur de power_rec(2, 3), c'est 8
+# donc 2 * 8 = 16
+
+# RETOUR EXECUTION 1 : power_rec(2, 5)
+# je suis fixé sur la valeur de power_rec(2, 4), c'est 16
+# donc 2 * 16 = 32
+
+
 
 
 # Exercice 3 : Le nombre de chiffre d’un nombres. 1970 => 4
 
 
+def count_of_digits_rec(n):
+    if n <= 10:
+        return 1
+    else:
+        return 1 + count_of_digits_rec(n // 10)
+
+
+print("test de count of digits rec", count_of_digits_rec(67329))
+
+# ok
+
+# Décomposition avec 67329
+# EXECUTION 1 : sum_of_digits_rec(67329)
+# n <= 10 => 67329 <=10, cette condition renvoie false
+# on passe dans le else
+# je return 1 + sum_of_digits_rec(n // 10) => 1 + sum_of_digits_rec(6732)
+
+# RÉCURSION 1 - EXECUTION 2 : sum_of_digits_rec(6732)
+# n <= 10 => 6732 <= 10, cette condition renvoie false
+# on passe dans le else
+# je return 1 + sum_of_digits_rec(n // 10) => 1 + sum_of_digits_rec(673)
+
+# RÉCURSION 2 - EXECUTION 3 : sum_of_digits_rec(673)
+# n <= 10 => 673 <= 10, cette condition renvoie false
+# on passe dans le else
+# je return 1 + sum_of_digits_rec(n // 10) => 1 + sum_of_digits_rec(67)
+
+# RÉCURSION 3 - EXECUTION 4 : sum_of_digits_rec(67)
+# n <= 10 => 67 <= 10, cette condition renvoie false
+# on passe dans le else
+# je return 1 + sum_of_digits_rec(n // 10) => 1 + sum_of_digits_rec(6)
+
+# RÉCURSION 4 - EXECUTION 5 : sum_of_digits_rec(6)
+# n <= 10 => 6 <= 10, cette condition renvoie true,
+# on return 1
+
+# RETOUR RÉCURSION 3 - EXECUTION 4 : sum_of_digits_rec(67)
+# je suis fixé sur la valeur de sum_of_digits_rec(6), qui est 1
+# donc 1 + 1 = 2
+
+# RETOUR RÉCURSION 2 - EXECUTION 3 : sum_of_digits_rec(673)
+# je suis fixé sur la valeur de sum_of_digits_rec(67), qui est 2
+# 1 + 2 = 3
+
+# RETOUR RÉCURSION 1 - EXECUTION 2 : sum_of_digits_rec(6732)
+# je suis fixé sur la valeur de sum_of_digits_rec(673), qui est 3
+# 1 + 3 = 4
+
+# RETOUR EXECUTION 1 : sum_of_digits_rec(67329)
+# je suis fixé sur la valeur de sum_of_digits_rec(6732), qui est 4
+# 1 + 4 = 5
+
+
+
+
+
 # Exercice 4 : la somme des chiffres d’un nombre. 1970 = 1+9+7+0
+
+
+def sum_of_digits_rec(n):
+    if n <=10:
+        return n % 10
+    else:
+        return n % 10 + sum_of_digits_rec(n//10)
+
+
+print("Test de sum of digits rec", sum_of_digits_rec(3243))
+
+# ok
 
 
 # Exercice 5 : Afficher le chiffre de fibonacci
 
+def print_fib_rec(n):
+    if n <= 1:
+        return n
+    else:
+        return print_fib_rec(n-1) + print_fib_rec(n-2)
+
+
+print("Test de print fib rec", print_fib_rec(12))
+
+# ok
+
+# à décomposer avec 8
+
 
 # Exercice 6 : Fibonnaci : Optimiser le temps de calcul avec un dictionnaire temporaire
+
+dico_fib = {
+    0: 0,
+    1: 1
+}
+
+def print_fib_rec_with_dico(n):
+    if n not in dico_fib:
+        dico_fib[n] = print_fib_rec_with_dico(n-1) + print_fib_rec_with_dico(n-2)
+    return dico_fib[n]
+
+
+
+print("Test de print fib rec with dico", print_fib_rec_with_dico(12))
+
 
 
 # Exercice 7 : Code Wars : Reduce My Fraction
 
+def get_pgcd(a, b):
+    if a == 1 or b == 1:
+        return 1
+    if a == 0:
+        return b
+    if b == 0:
+        return a
+    return get_pgcd(b%a, a)
+
+
+
+
+def reduce_fraction(fraction):
+    pgcd_result = get_pgcd(fraction[0], fraction[1])
+    result = (fraction[0] // pgcd_result, fraction[1] // pgcd_result)
+    return result
+
+
+
+print("Test de reduce fraction en itérative", reduce_fraction((60, 20)))
+
 
 # Exercice 8 : Code Wars : Reduce My Fraction (version itérative)
+
+def reduce_fraction_iterative(fraction):
+    diviseurs_fraction_0 = []
+    diviseurs_fraction_1 = []
+    for i in range(1, fraction[0] + 1):
+        if fraction[0] % i == 0:
+            diviseurs_fraction_0.append(i)
+    for i in range(1, fraction[1] + 1):
+        if fraction[1] % i == 0:
+            diviseurs_fraction_1.append(i)
+    max_in_both = max(filter(lambda x: x in diviseurs_fraction_0, diviseurs_fraction_1))
+    return (fraction[0] // max_in_both, fraction[1] // max_in_both)
+
+
+print("Test de reduce fraction en iterative", reduce_fraction_iterative((60,20)))
 
 
 # Exercice 9 : Vérifier si un mot est un palindrome
 
 
+list_word = ["kayak", "rotor", "bonjour", "radar", "rever", "manger"]
+
+def is_palindrome_rec(word):
+    if len(word) <= 1:
+        return True
+    else:
+        return word[0] == word[-1] and is_palindrome_rec(word[1:-1])
+
+
+
+for i in range(len(list_word)):
+    if is_palindrome_rec(list_word[i]) == True:
+        print("le mot", list_word[i], "est un palindrome !")
+    else:
+        print("le mot", list_word[i], "n'est pas un palindrome !")
+
+
+
+
 # Exercice 10 : Trouver le minimum d'un tableau
 
 
+tab_test= [randint(1,100) for i in range(20)]
+print(tab_test)
+tab_demo = [8, 5, 9, 4]
+
+
+def find_min_rec(tab):
+    if len(tab) <= 1:
+        return tab[0]
+    else:
+        min_tab_temporaire = find_min_rec(tab[:-1])
+        if min_tab_temporaire < tab[-1]:
+            return min_tab_temporaire
+        else:
+            return tab[-1]
+
+
+print("Test de find min rec", find_min_rec(tab_test))
+
+print("Test de find min rec avec le tableau de demo", find_min_rec(tab_demo))
+
+
+# Décomposition avec un tableau à 4 éléments tab_demo = [8, 5, 9, 4]
+
+# EXECUTION 1 : je rentre dans find_min_rec(tab_demo) => find_min_rec([8, 5, 9, 4])
+# est ce que len(tab) <=1 => 4 <= 1, cette condition renvoie false,
+# je passe dans le else
+# je déclare une varibale min_tab_temporaire = find_min_rec(tab[:-1]) => min_tab_temporaire = find_min_rec([8, 5, 9])
+# donc min_tab_temporaire recoit l'appel de la fonction récursive avec le tableau amputé d'un élément
+
+# RÉCURSION 1 - EXECUTION 2 : je rentre dans find_min_rec([8, 5, 9])
+# est ce que len(tab) <= 1 => 3 <= 1, cette condition renvoie false,
+# je passe dans le else
+# je déclare une variable min_tab_temporaire = find_min_rec(tab[:-1]) => min_tab_temporaire = find_min_rec([8,5])
+
+# RÉCURSION 2 - EXECUTION 3 : je rentre dans find_min_rec([8,5])
+# est ce que len(tab) <=1 => 2 <= 1, cette condition renvoie false,
+# je passe dans le else
+# je déclare une variable min_tab_temporaire = find_min_rec(tab[:-1]) => min_tab_temporaire = find_min_rec([8])
+
+# RÉCURSION 3 - EXECUTION 4 : je rentre dans find_min_rec([8])
+# est ce que len(tab) <=1 => 1 <= 1, cette condition renvoie TRUE,
+# je rentre dans le if, et je return tab[0] => 8
+
+
+# RETOUR RÉCURSION 2 - EXECUTION 3 :
+# je suis fixé sur la valeur de min_tab_temporaire qui est égale à 8
+# je peux continuer à executer le reste du code.
+# if min_tab_temporaire < tab[-1]: => if 8 < 5
+# cette condition renvoie false, je passe dans le else
+# je return tab[-1] => 5
+
+# RETOUR RÉCURSION 1 - EXECUTION 2 :
+# je suis fixé sur la valeur de min_tab_temporaire = 5
+# je peux continuer à executer le reste du code.
+# if min_tab_temporaire < tab[-1]: => if 5 < 9
+# cette condition renvoie true, je return min_tab_temporaire = 5
+
+# RETOUR EXECUTION 1 :
+# Je suis fixé sur la valeur de min_tab_temporaire = 5
+# je peux continuer à executer le reste du code.
+# if min_tab_temporaire < tab[-1]: => if 5 < 4
+# cette condition renvoie false, je passe dans le else
+# je return tab[-1] => 4
+
+# le minimum du tableau est bien 4 !
+
+
+
+
+
+
 # Exercice 11 : Retrouver le binaire d'un nombre
+
+
+def find_binary_rec(num):
+    if num // 2 == 0:
+        return str(num%2)
+    else:
+        return find_binary_rec(num//2) + str(num%2)
+
+
+print("Test de find binary rec", find_binary_rec(40))
+
+
+# ok
+
+# décomposer le code pour comprendre l'importance de l'ordre str(num%2) après le return
+
 
 
 # Exercice 12 : Vérifier qu’un tableau de nombre est trié par ordre croissant ou non
@@ -49,8 +347,7 @@ from time import sleep
 # Exercice 15 : Ecrire une fct récursive retournant la liste de toutes les permutations possibles d'une liste**
 
 
-# Exercice 16 : Propagation (avec le fichier propagation.txt, remplir l'élément de "1" et de "2")
+# Exercice 16 : Propagation (avec le fichier propagation.txt, remplir l'élément de "1", de "2" et de "3")
 
 
 # Exercice 17 : Dichotomie
-
