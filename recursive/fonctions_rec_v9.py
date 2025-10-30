@@ -335,19 +335,321 @@ print("Test de find binary rec", find_binary_rec(40))
 
 
 
-# Exercice 12 : Vérifier qu’un tableau de nombre est trié par ordre croissant ou non
+# Exercice 12 : Vérifier qu’un tableau de nombre est trié par ordre croissant ou non (itérative)
+
+tab_sorted = [3, 6, 9, 12, 15]
+
+tab_unsorted = [1, 2, 8, 9, 1, 30, 11]
+
+
+def is_sorted(tab):
+    for i in range(len(tab) -1):
+        if tab[i] > tab[i+1]:
+            return False
+    return True
+
+print("Test de is sorted avec tableau trié : ", is_sorted(tab_sorted))
+
+print("Test de is sorted avec tableau trié: ", is_sorted(tab_unsorted))
+
+
 
 
 # Exercice 13 : Vérifier qu'un nombre est premier (itératif et récursif)
 
+nombres = [14, 19, 25, 31, 37, 42, 53, 60, 67, 75]
+
+
+def is_prime_iteratif(n):
+    modulo = 2
+    for i in range(modulo, n):
+        if n%modulo == 0:
+            return False
+        modulo +=1
+    return True
+
+
+
+for i in range(len(nombres)):
+    if is_prime_iteratif(nombres[i]) == True:
+        print(nombres[i], "est un nombre premier")
+    else:
+        print(nombres[i], "n'est pas un nombre premier !")
+
+
+
+
+# nombres premiers : 19, 31, 37, 53, 67
+# nombres pas premiers : 14, 25, 42, 60, 75
+
+
 
 # Exercice 14 : Code Wars : Tiling Rectangles With squares
+
+# sur 11, 18 => trouver le plus grand carré qu'on peut placer et combien on peut en mettre
+# pour savoir combien on peut en mettre on prend le plus petit coté du rectangle
+# on cherche quel est la plus grande puissance de 2 qui soit inférieure au plus petit côté du rectangle
+# on fait une boucle while, des qu'on dépasse 2^n > min_size => on stoppe, et on devra stocker le 2^n-1 dans la variable car on est allés
+# un cran trop haut par rapport au coté le plus petit
+# ensuite pour savoir combien de carrés on pourra placer dans le rectangle, il faudra calculer le nombre de carrés qu'on peut disposer
+# dans la longeur la plus longue du rectangle
+# ensuite j'appelle deux fonctions récursives avec les parties qui nous restent à couvrir, à savoir
+# le coté droit du rectangle qu'il reste à couvrir,
+# le bas du rectangle qu'il reste à couvrir.
+
+
+def num_tiles(width,height):
+    if width == 0 or height == 0:
+        return 0
+    if width == 1 or height == 1:
+        return width * height
+    min_length = 0
+    max_length = 0
+    if width < height:
+        min_length = width
+        max_length = height
+    else:
+        min_length = height
+        max_length = width
+    power = 0
+    while 2** power <= min_length:
+        power +=1
+    size_square = 2 ** (power -1)
+    number_of_squares = max_length // size_square
+
+    return number_of_squares + num_tiles(size_square, max_length - (size_square * number_of_squares)) + num_tiles( min_length - size_square, max_length)
+
+
+
+print("test num tiles", num_tiles(11, 13))
+
+
+# décomposition du code avec 11, 13
+
+# EXECUTION 1 : num_tiles(11, 13)
+# je ne rentre dans aucun des ifs
+# min_length = 0, max_length = 0
+# if width < height: => if 11 < 13, cette condition renvoie true, je rentre dans le if
+# min_length = width max_length = height => min_length = 11, max_length = 13
+# power = 0
+# BOUCLE WHILE TOUR 1
+# while 2** power <= min_length: => while 2 ** 0 <= min_length => while 1 <= 11, cette condition renvoie true, je rentre dans le while
+# power +=1, 0 += 1 => power = 1
+# BOUCLE WHILE TOUR 2
+# while  2** power <= min_length: => while 2 ** 1 <= min_length => while 2 <= 11, cette condition renvoie true, je rentre dans le while
+# power +=1, 1+=1 => power = 2
+# BOUCLE WHILE TOUR 3
+# while  2** power <= min_length: => while 2 ** 2 <= min_length => while 4 <= 11, cette conditon renvoie true, je rentre dans le while
+# power +=1, 2+=1, power = 3
+# BOUCLE WHILE TOUR 4
+# while 2** power <= min_length: => while 2 ** 3 <= min_length => while 8 <= 11, cette condition renvoie true, je rentre dans le while
+# power +=1 => 3+=1, power = 4
+# BOUCLE WHILE TOUR 5
+# while 2** power <=  min_length:  => while 2 ** 4 <= min_length => while 16 <= 11, cette condition renvoie false, je ne rentre donc pas dans le while
+# power = 4, il faut retirer 1 car on est allé une étape trop haute
+# size_square = 2 ** (power -1) => size_square = 2 ** (4-1) => 2 ** 3 => 8
+# la taille du carré est 8
+# number_of_squares = max_length // size_square
+# number_of_squares = 13 // 8 => 1
+# return number_of_squares + num_tiles(size_square, max_length - (size_square * number_of_squares)) + num_tiles( min_length - size_square, max_length)
+# return 1 + num_tiles(8, 13 - (8 * 1)) + num_tiles(11 - 8, 13)
+# return 1 + num_tiles(8, 5) + num_tiles(3, 13)
+
+# RECURSION 1.1 : EXECUTION 2.1 num_tiles(8, 5)
+# je ne rentre dans aucun des ifs
+# min_length = 0, max_length = 0
+# if width < height: => if 8 < 5, cette condition renvoie false, je rentre dans le else
+# min_length = height, max_length = width
+# min_length = 5, max_length = 8
+# power = 0¨
+# BOUCLE WHILE TOUR 1
+# while 2** power <= min_length:
+# while 2 ** 0 <= 5
+# while 1 <= 5, cette condition renvoie true, on rentre dans le while
+# power +=1
+# 0+=1
+# power = 1
+# BOUCLE WHILE TOUR 2
+# while 2** power <= min_length:
+# while 2 ** 1 <= 5
+# while 2 <= 5, cette condition renvoie true, on rentre dans le while
+# power += 1
+# 1+=1
+# power = 2
+# BOUCLE WHILE TOUR 3
+# while 2** power <= min_length:
+# while 2 ** 2 <= 5
+# while 4 <= 5, cette condition renvoie true, on rentre dans le while
+# power += 1
+# 2+=1
+# power = 3
+# BOUCLE WHILE TOUR 4
+# while 2** power <= min_length:
+# while 2 ** 3 <= 5
+# while 8 <= 5, cette condition renvoie false, on sort du while
+# power = 3
+# size_square = 2 ** (power -1)
+# size_square = 2 ** (3 -1)
+# size_square = 2 ** 2
+# size_square = 4
+# number_of_squares = max_length // size_square
+# number_of_squares = 8 // 4
+# number_of_squares = 2
+# return number_of_squares + num_tiles(size_square, max_length - (size_square * number_of_squares)) + num_tiles( min_length - size_square, max_length)
+# return 2 + num_tiles(4, 0) + num_tiles(1, 8)
+
+
+
+# RECURSION 1.1.1 - EXECUTION 2.1.1 num_tiles(4, 0)
+# if height <= 1:
+# if 0 <= 1, cette condition renvoie true, on rentre dans le if
+# on retourne width qui est égal à 4
+# on retourne 4.
+
+# RECURSION 1.1.2 - EXECUTION 2.1.2 num_tiles(1, 8)¨
+# if width <= 1
+# if 1 <= 1, cette condition renvoie true, on rentre dans le if
+# on retourne height qui est égale à 8
+# on retourne 8
+
+
+
+
+
+
+# RECURSION 1.2 - EXECUTION 2.2 num_tiles(3, 13)
+# je ne rentre dans aucun des ifs
+# min_length = 0 max_length = 0
+# if width < height:
+# if 3 < 13, cette condition renvoie true, je rentre dans le if
+# min_length = width max_length = height
+# min_length = 3, max_length = 13
+# power = 0
+# BOUCLE WHILE TOUR 1
+# while 2** power <= min_length:
+# while 2 ** 0 <= 3
+# while 1 <= 3, cette condition renvoie true
+# je rentre dans le while
+# power += 1
+# 0+=1
+# power = 1
+# BOUCLE WHILE TOUR 2
+# while 2** power <= min_length:
+# while 2 ** 1 <= 3
+# while 2 <= 3,cette condition renvoie true, je rentre dans le while
+# power +=1
+# 1+=1 => power = 2
+# BOUCLE WHILE TOUR 3
+# while 2** power <= min_length:
+# 2 ** 2 <= 3
+# 4 <=3, cette condition renvoie false, je ne rentre pas dans le while
+# power = 2
+# size_square = 2 ** (power -1)
+# size_square = 2 ** 1
+# size_square = 2
+# number_of_squares = max_length // size_square
+# number_of_squares = 13 // 2
+# number_of_squares = 6
+# return number_of_squares + num_tiles(size_square, max_length - (size_square * number_of_squares)) + num_tiles(min_length - size_square, max_length)
+# return 6 + num_tiles(2, 1) + num_tiles(1, 13)
+
+# RECURSION 1.2.1 - EXECUTION 2.2.1 num_tiles(2, 1)
+# if height <= 1:
+# if 1 <= 1, cette condition renvoie true
+# je retourne width qui est égale à 2
+# je retourne 2
+
+# RECURSION 1.2.2 - EXECUTION 2.2.2 num_tiles(1, 13)
+# if width <= 1:
+# if 1 <= 1:
+# je retourne height qui est égale à 13
+# je retourne 13
+
+
+# RETOUR RECURSION 1.2 - EXECUTION 2.2 num_tiles(3, 13)
+# Je suis fixé sur num_tiles(2, 1) (2) et num_tiles(1, 13) (13)
+# Le retour de la fonction est donc 6 + 2 + 13 => 21
+
+# RETOUR RECURSION 1.1 - EXECUTION 2.1 num_tiles(8, 5)
+# Je suis fixé sur num_tiles(4, 0) (4) et sur num_tiles(1, 8) (8)
+# Le retour de la fonction est donc 2 + 4 + 8 => 12
+
+# RETOUR EXECUTION 1
+# Je suis fixé sur num_tiles(3, 13) (21) et  num_tiles(8, 5) (12)
+# je retourne donc 1 + 21 + 12 => 34
+
+
+
+
+
 
 
 # Exercice 15 : Ecrire une fct récursive retournant la liste de toutes les permutations possibles d'une liste**
 
 
 # Exercice 16 : Propagation (avec le fichier propagation.txt, remplir l'élément de "1", de "2" et de "3")
+
+# importing os module
+
+
+
+# gives the path of demo.py
+def getSol(file_name):
+    sol = []
+    with open(file_name, 'r', encoding='utf-8') as fichier:
+        for ligne in fichier:
+            sol.append(list(ligne[:-1]))
+    return sol
+
+sol = getSol('data/propagation.txt')
+
+print(sol)
+
+
+
+def propagation(file):
+    value = 1
+    for l in range(len(file)):
+        for c in range(len(file[l])):
+            if file[l][c] == "X":
+                file[l][c] = "-"
+            if file[l][c] == " ":
+                fill_tab(file, value, l, c)
+                value +=1
+    return file
+
+
+def fill_tab(file, value, l, c):
+    if l >= 0 and l < len(file) -1 and c >=1 and c < len(file[l]) -1 and file[l][c] == " ":
+        file[l][c] = value
+        fill_tab(file, value, l +1, c)
+        fill_tab(file, value, l -1, c)
+        fill_tab(file, value, l, c+1)
+        fill_tab(file, value, l, c-1)
+
+
+
+# file_with_propagation = propagation(sol)
+
+# print(file_with_propagation)
+
+
+# for l in range(len(file_with_propagation)):
+#     for c in range(len(file_with_propagation[l])):
+#         print(file_with_propagation[l][c], end=" ")
+#     print("")
+
+
+sol_2 = propagation(sol)
+
+for l in sol_2:
+    for c in l:
+       print(c, end=" ")
+    print("")
+
+
+# print("Test du fichier avec les 1", propagation(sol))
+
 
 
 # Exercice 17 : Dichotomie

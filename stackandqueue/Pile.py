@@ -9,6 +9,9 @@
 # getter pour retourner la valeur d'un attribut (obtenir le nom)
 # setter c'est pour affecter une valeur à un attribut (changer le nom, l'age)
 
+
+
+
 class Pile:
     def __init__(self, taille_max:int):
         self.__elements = []
@@ -20,13 +23,13 @@ class Pile:
     def is_full(self):
         return len(self.__elements) >= self.taille_max
 
-    def stack(self, element:int) -> bool|None:
+    def stack(self, element):
         if not self.is_full():
             self.__elements.append(element)
             return True
         return None
 
-    def unstack(self) -> int|None:
+    def unstack(self):
         if not self.is_empty():
             return self.__elements.pop()
         return None
