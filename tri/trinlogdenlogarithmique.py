@@ -25,10 +25,10 @@
 # l'appel des fonctions triFusion avec les deux moitiés de tableau
 # on retourne interclasser(Trifusion([76]), Trifusion([2]))
 
-# RECURSION 2.1 - EXECUTION 2.1 => Trifusion([76]). on rentre dans la condition d'arret
+# RECURSION 1.1.1 - EXECUTION 2.1.1 => Trifusion([76]). on rentre dans la condition d'arret
 # on retoune le tableau T [76].
 
-# RÉCURSION 2.2 - EXECUTION 2.2 => Trifusion([2]). on rentre dans la condition d'arret
+# RÉCURSION 1.1.2 - EXECUTION 2.1.2 => Trifusion([2]). on rentre dans la condition d'arret
 # on retourne le tableau T [2]
 
 # ON COMMENCE À REMONTER - RETOUR RECURSION 1.1 - EXECUTION 1.1
