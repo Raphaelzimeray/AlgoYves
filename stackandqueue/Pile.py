@@ -39,15 +39,91 @@ class Pile:
             return self.__elements[-1]
         return None
 
-    # def display(self):
-    #     if self.is_empty():
-    #         print("Pile vide")
-    #     else:
-    #         print("")
-    #         reversed_list = reversed(self.elements)
-    #         for element in reversed_list:
-    #             print(element)
-    #         print("")
+    # taille de la pile
+
+    def number_of_elements(self):
+        return len(self.__elements)
+
+
+    def reverse_stack(self) -> None:
+        pile2 = Pile(self.taille_max)
+        pile3 = Pile(self.taille_max)
+        while not self.is_empty():
+            pile2.stack(self.unstack())
+        while not pile2.is_empty():
+            pile3.stack(pile2.unstack())
+        while not pile3.is_empty():
+            self.stack(pile3.unstack())
+
+
+    # max de la pile
+
+    def max(self):
+        if self.is_empty():
+            return None
+        max = self.get_top()
+        pile2 = Pile(self.taille_max)
+        while not self.is_empty():
+            if self.get_top() > max:
+                max = self.get_top()
+            pile2.stack(self.unstack())
+        while not pile2.is_empty():
+            self.stack(pile2.unstack())
+        return max
+
+
+
+    # max d'une partie de la pile
+
+    def partial_max(self, profondeur):
+        if self.is_empty():
+            return None
+        max = self.get_top()
+        pile2 = Pile(self.taille_max)
+        count = 0
+        while not self.is_empty() and count < profondeur:
+            if self.get_top() > max:
+                max = self.get_top()
+            pile2.stack(self.unstack())
+            count +=1
+        while not pile2.is_empty():
+            self.stack(pile2.unstack())
+        return max
+
+    # index du max d'une partie de la pile
+
+    def partial_max_index(self, profondeur):
+        if self.is_empty():
+            return None
+        max = self.get_top()
+        max_index = 1
+        pile2 = Pile(self.taille_max)
+        count = 1
+        while not self.is_empty() and count <= profondeur:
+            if self.get_top() > max:
+                max = self.get_top()
+                max_index = count
+            pile2.stack(self.unstack())
+            count +=1
+        while not pile2.is_empty():
+            self.stack(pile2.unstack())
+        return max_index
+
+
+    # inversion d'une partie de la pile
+    def partial_reverse(self, profondeur):
+        pile2 = Pile(self.taille_max)
+        pile3 = Pile(self.taille_max)
+        count = 0
+        while not self.is_empty() and count < profondeur:
+            pile2.stack(self.unstack())
+            count +=1
+        while not pile2.is_empty():
+            pile3.stack(pile2.unstack())
+        while not pile3.is_empty():
+            self.stack(pile3.unstack())
+
+
 
     def __str__(self):
         if self.is_empty():
@@ -59,3 +135,11 @@ class Pile:
                 txt += str(element) + "\n"
             txt += "\n"
         return txt
+
+    def order_elements(self):
+        i = self.number_of_elements()
+        while i > 0:
+            j = self.partial_max_index(i)
+            self.partial_reverse(j)
+            self.partial_reverse(i)
+            i -=1

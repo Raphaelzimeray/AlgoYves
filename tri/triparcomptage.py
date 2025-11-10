@@ -23,6 +23,7 @@ def partitionner(tab, first, last, pivot):
     permute(tab, last, j)
     return j
 
+
 def quick_sort(tab, first_index, last_index):
     if first_index < last_index:
         pivot = randint(first_index, last_index)

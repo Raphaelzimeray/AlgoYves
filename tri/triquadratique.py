@@ -158,6 +158,20 @@ def select_sort2(tab):
             tab[min], tab[i] = tab[i], tab[min]
 
 
+def select_sort3(tab):
+    i = 0
+    is_sorted = False
+    while not is_sorted and i < len(tab) -1:
+        min = i
+        for j in range(i+1, len(tab)):
+            if tab[j] < tab[min]:
+                min = j
+        if min != i:
+            tab[min], tab[i] = tab[i], tab[min]
+        else:
+            is_sorted = True
+        i +=1
+
 
 
 tab_sorted = sort_tab(tab_unsorted)
@@ -253,6 +267,22 @@ for i in range (min, max, step):
     Y.append(stop - start)
 
 plt.plot(X,Y,label='tri par selection 2')
+
+Y = []
+
+
+for i in range (min, max, step):
+    tab_unsorted = [randint(0,i//2) for _ in range(i)]
+    tab_unsorted.sort()
+    permute(tab_unsorted, 5, len(tab_unsorted)-5)
+    start = time()
+    f = select_sort3(tab_unsorted)
+    stop = time()
+    Y.append(stop - start)
+
+plt.plot(X,Y,label='tri par selection 3')
+
+
 
 plt.legend()
 plt.show()

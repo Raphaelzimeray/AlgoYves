@@ -1,5 +1,7 @@
 from Pile import *
 
+from random import randint
+
 pile_1 = Pile(10)
 
 # Ajout de 10 éléments
@@ -111,3 +113,118 @@ def check_numeric_syntax(expression:str) -> bool:
 print("test de check numeric syntax", check_numeric_syntax(numerical_expression))
 
 print("test de check numeric syntax", check_numeric_syntax(numerical_expression2))
+
+
+# Exercice 4 : Crêpes. Il y a une pile de crêpes, chaque crêpes à un diametre, il veut ranger la plus grande en bas et la plus petite en haut.
+# Il a le droit uniquement de prendre sa spatule la ou il veut sous une crêpe et de retourner l'ensemble
+# à partir de ca, du haut jusqu'à la crêpe il doit retourner l'ensemble.
+# Il ne peut retourner que les crêpes qui sont au dessus de sa spatule. Il inverse l'ordre des crêpes au dessus de sa spatule.
+# retourner la crepe la plus grande parmis p crêpes (dans un range). et ensuite comment j'inverse p crêpes. les deux sont des méthodes de la classe pile
+
+
+# test de max
+
+pile4 = Pile(10)
+
+for _ in range(8):
+    pile4.stack(randint(0, 100))
+
+
+print(pile4)
+
+# print("test de max de pile 4", pile4.max())
+
+# print("test de partial max de pile 4", pile4.partial_max(4))
+
+# pile4.partial_reverse(4)
+
+# print("test de partial reverse de pile 4", pile4)
+
+# max_index_1 = pile4.partial_max_index(pile4.number_of_elements())
+
+# print("test de max index 1", max_index_1)
+
+# # inverser la pile jusqu'à la position de la plus grande crêpe
+
+# pile4.partial_reverse(max_index_1)
+
+# print(pile4)
+
+# pile4.partial_reverse(pile4.number_of_elements())
+
+# print(pile4)
+
+def order_elements(pile:Pile):
+    i = pile.number_of_elements()
+    while i > 0:
+        j = pile.partial_max_index(i)
+        pile.partial_reverse(j)
+        pile.partial_reverse(i)
+        i -=1
+
+# order_elements(pile4)
+
+pile4.order_elements()
+
+print("test de order elements", pile4)
+
+
+# Exercice 5 : Faire une sorte de mini calculatrice
+
+# https://fr.wikipedia.org/wiki/Notation_polonaise_inverse
+
+
+operation1 = "10 5 - 3 /"
+
+# dans le cas ou on a plusieurs éléments à additionner, il faut aux additions
+# successives qui se réalisent
+
+op1 = "13 14 10 5 + + +"
+op2 = "13 14 + 10 + 5 +"
+op3 = "13 14 + 10 5 + +"
+
+def calculator(expression:str):
+    operation_list = expression.split(" ")
+    pile_operation = Pile(len(operation_list))
+    for elt in operation_list:
+        if elt not in ("+", "/", "-", "*"):
+            pile_operation.stack(elt)
+            print("pile: ", pile_operation)
+        else:
+            print("operator : ", elt)
+            a = float(pile_operation.unstack())
+            b = float(pile_operation.unstack())
+            if elt == "+":
+                pile_operation.stack(a+b)
+            elif elt == "-":
+                pile_operation.stack(b-a)
+            elif elt == "*":
+                pile_operation.stack(a*b)
+            elif elt == "/":
+                pile_operation.stack(b/a)
+            print("pile: ", pile_operation)
+    return pile_operation.unstack()
+
+
+
+print(operation1)
+res = calculator(operation1)
+print("test de calculator(operation1)", res)
+
+print("expression à calculer : ", op1)
+res = calculator(op1)
+print("résultat:", res)
+
+print("expression à calculer : ", op2)
+res = calculator(op2)
+print("résultat:", res)
+
+print("expression à calculer : ", op3)
+res = calculator(op3)
+print("résultat:", res)
+
+
+
+# calculator(operation1)
+
+

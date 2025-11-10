@@ -417,7 +417,99 @@ print("test de tab_test_tri_fusion_2 [2:]", tab_test_tri_fusion_2[2:])
 
 # Exercice 5 : Tri par Comptage (O(n)) https://info.blaisepascal.fr/nsi-complexite-dun-algorithme/
 
+# Tu dois créer comme un dictionnaire ou chaque clé est un entier naturel
+# et chaque valeur,me nb de fois que cette clé est trouvée dans le tableau à trier
+
+dico_comptage = {
+    0: []
+}
+
+tab_test_tri_comptage = [32, 78, 78, 12, 11, 11, 11, 23, 9, 9, 9, 9, 3, 2, 1, 1]
+
+tab_unsorted = [randint(0,100) for _ in range(50)]
+
+def count_sort(tab:list):
+    max = tab[0]
+    for v in tab:
+        if v > max:
+            max = v
+    lcount = [0] * (max + 1)
+    for v in tab:
+        lcount[v] +=1
+    tab.clear()
+    for k, v in enumerate(lcount):
+        tab += [k] * v
+    return tab
+
+
+print("Test du tableau avant le tri par comptage \n", tab_unsorted)
+
+
+count_sort(tab_unsorted)
+
+print("Test du tableau après le tri par comptage \n", tab_unsorted)
+
+
+
 # Exercice 6 : Tri par insertion (quadratique)
+
+# placer l'élément le plus petit vers le début du tableau.
+
+# je parcours le tableau, des que je trouve un élément plus petit que le minimum je le place en décalant tout le reste
+
+
+
+tab_test_tri_par_insertion = [43, 41, 2, 8, 1, 12, 1]
+
+
+def insert_sort(tab):
+    for i in range(1, len(tab)):
+        x = tab[i]
+        j = i
+        while j > 0 and tab[j-1] >= x:
+            tab[j] = tab[j -1]
+            j -=1
+
+        tab[j] = x
+
+
+print("test du tri par insertion avant INSERT SORT \n", tab_test_tri_par_insertion)
+
+insert_sort(tab_test_tri_par_insertion)
+
+print("test du tri par insertion après INSERT SORT \n", tab_test_tri_par_insertion)
+
+
+# Tri par insertion execution avec l'exemple d'un tableau à 4 éléments tab_insert = [3, 1, 8, 5]
+
+
+# EXECUTION insert_sort([3, 1, 8, 5])
+
+
+# TOUR DE BOUCLE n 1 de i (i = 1 car i commence à 1, et termine à len(tab), donc 4, et on s'arrêtera un cran avant donc à 3)
+# x = tab[i] => x = 1
+# j = i => j = 1
+
+
+# TOUR WHILE n 1 (j>0 => 1 >0, cette condition renvoie true,  tab[j-1] >= x => tab[0] >= x => 3 >= 1, cette condition renvoie true aussi)
+# tab[j] = tab[j -1] => tab[1] = tab[0] => tab[1] = 3
+# ici le tableau vaut donc [3, 3, 8, 5]
+# j -=1 => 1 -= 1 => j = 0 !
+# dernier tour de boucle WHILE
+
+# tab[j] = x => tab[0] recoit 1. Le tableau à cette étape est donc [1, 3, 8, 5]
+
+
+# TOUR DE BOUCLE n2  de i (i = 2 (avant dernier tour))
+# x = tab[i]
+# j = i
+
+
+
+# TOUR WHILE n1 (j > 0 and tab[j-1] >= x: => )
+
+
+
 
 # Exercice 7 : Tri par séléction (quadratique)
 
@@ -428,7 +520,11 @@ def select_sort(tab):
         min = i
         for j in range(i, len(tab)):
             if tab[j] < tab[min]:
-                permutation(tab, j, min)
+                min = j
+        permutation(tab, i, min)
+
+
+
 
 
 print(" test du tableau tri selection avant la fonction de selection \n", tab_test_tri_selection)
@@ -436,6 +532,34 @@ print(" test du tableau tri selection avant la fonction de selection \n", tab_te
 select_sort(tab_test_tri_selection)
 
 print(" test du tableau tri selection après la fonction de selection \n", tab_test_tri_selection)
+
+tab_test_tri_selection = [34, 2, 3, 21, 89]
+
+def select_sort3(tab):
+    i = 0
+    is_sorted = False
+    while not is_sorted and i < len(tab) -1:
+        min = i
+        for j in range(i+1, len(tab)):
+            if tab[j] < tab[min]:
+                min = j
+        if min != i:
+            tab[min], tab[i] = tab[i], tab[min]
+        else:
+            is_sorted = True
+        i +=1
+
+
+print(" test du tableau tri selection avant la fonction de selection 3 \n", tab_test_tri_selection)
+
+select_sort3(tab_test_tri_selection)
+
+print(" test du tableau tri selection après la fonction de selection 3 \n", tab_test_tri_selection)
+
+# permutation(tab_test_tri_selection, 0, 1)
+
+# print(tab_test_tri_selection)
+
 
 # Exercice 8 : Tri par séléction avec tests d'égalité (quadratique)
 
@@ -446,15 +570,116 @@ tab_test_tri_a_bulle = [1900,400932, 28989992, 3, 78, 31, 12, 12, 999, 900, 123]
 
 def bubble_sort(tab):
     for i in range(len(tab) -1):
-        for j in range(i, len(tab)):
-            if tab[i] > tab[j]:
-                permutation(tab, i, j)
+        for j in range(len(tab) - i - 1):
+            if tab[j] > tab[j + 1]:
+                permutation(tab, j, j + 1)
 
 print(tab_test_tri_a_bulle)
 
 bubble_sort(tab_test_tri_a_bulle)
 
 print("test de l'algo bubble sort ", tab_test_tri_a_bulle)
+
+
+
+# Execution main pour comprendre le tri à bulle
+
+
+# tableau d'exemple tab_bubble_ex = [32, 12, 90, 4]
+
+# EXECUTION FONCTION bubble_sort(tab) bubble_sort([32, 12, 90, 4, 2])
+
+# TOUR DE BOUCLE numéro 1 de i (i = 0) (on ira jusqu'à i = 4, car len(tab) = 5 et on s'arrête un cran avant)
+
+
+# TOUR DE BOUCLE numéro 1 de j (j = 0) (borne max ici 5 - 0 - 1 => 4 (on s'arrêtera à j = 3 ducou))
+# if tab[j] > tab[j + 1]:
+# if tab[0] > tab[1]:
+# if 32 > 12 => cette condition renvoie true, je rentre dans le if
+# permutation(tab, j, j + 1) => permutation([32, 12, 90, 4, 2], 0, 1) => l'élément 0 et l'élément 1 du tableau vont être inversés
+# à ce stade, tab_bubble_ex = [12, 32, 90, 4, 2]
+
+# TOUR DE BOUCLE numéro 2 de j (j = 1)
+# if tab[j] > tab[j + 1]:
+# if tab[1] > tab[2]: => 32 > 90, cette condition renvoie false, on ne rentre pas dans le if, on passe au tour suivant
+
+# TOUR DE BOUCLE numéro 3 de j (j =2)
+# if tab[j] > tab[j + 1]:
+# if tab[2] > tab[3]: if 90 > 4 =>  cette condition renvoie true, on rentre dans le if
+# permutation(tab, j, j + 1) => permutation([12, 32, 90, 4, 2], 2, 3) => l'élément 2 et 3 du tableau vont être inversés
+# à ce stade, tab_bubble_ex = [12, 32, 4, 90, 2]
+
+# TOUR DE BOUCLE numéro 4 de j (j = 3), ce tour sera notre dernier !
+# if tab[j] > tab[j + 1]: => if tab[3] > tab[4]: => 90 > 2
+# cette condition renvoie true, om rentre dans le if
+# permutation(tab, j, j + 1) => permutation([12, 32, 4, 90, 2], 3, 4)
+# l'élément 3 et 4 du tableau vont être permutés, le nouveau tableau est => [12, 32, 4, 2, 90]
+# fin des boucles j.
+
+
+# TOUR DE BOUCLE numéro 2 de i (i = 1) (on ira jusqu'à i = 4, car len(tab) = 5 et on s'arrêtera un cran avant)
+
+
+# TOUR DE BOUCLE numéro 1 de j (j = 0) (borne max ici 5 - 1 -1  = 3, donc on s'arrêtera à j = 2)
+# if tab[j] > tab[j + 1]: =>  if tab[0] > tab[1]:
+# => if 12 > 32, cette condition renvoie false, on ne rentre pas dans le if
+
+# TOUR DE BOUCLE numéro 2 de j (j = 1)
+# if tab[j] > tab[j + 1]: => if[tab[1] > tab[2]: => if 32 > 4, cette condition renvoie true
+# je rentre dans le if
+# permutation(tab, j, j + 1) => permutation([12, 32, 4, 2, 90], 1, 2), les éléments en position 1 et 2 du tableau vont être permutés
+# le tableau ici sera [12, 4, 32, 2, 90]
+
+# TOUR DE BOUCLE numéro 3 de j (j = 2) (dernier tour)
+# if tab[j] > tab[j + 1]: => if tab[2] > tab[3] => if 32 > 2, cette condition renvoie true,
+# je rentre dans le if
+# permutation(tab, j, j + 1) => permutation([12, 4, 32, 2, 90], 2, 3), les éléments en position 2 et 3 du tableau vont être permutés
+# le tableau est désormais [12, 4, 2, 32, 90]
+# fin des boucles j
+
+
+# TOUR DE BOUCLE numéro 3 de i (i = 2) (on ira jusqu'à i = 4 (len(tab) = 5))
+
+
+# TOUR DE BOUCLE numéro 1 de j (j = 0) (borne max ici 5 - 2- 1 = 2, donc on s'arrêtera à j = 1)
+# if tab[j] > tab[j + 1]: => if tab[0] > tab[1]: => if 12 > 4, cette condition renvoie true,
+# je rentre dans le if
+# permutation(tab, j, j + 1) => permutation([12, 4, 2, 32, 90], 0, 1), les éléments 0 et 1 du tableau vont être inversés
+# [4, 12, 2, 32, 90]
+
+# TOUR DE BOUCLE numéro 2 de j (j =1) (dernier tour)
+# if tab[j] > tab[j + 1]: => if tab[1] > tab[2]: => if 12 > 2, cette conditon renvoie true,
+# je rentre dans le if
+# permutation(tab, j, j+ 1) => permutation([4, 12, 2, 32, 90], 1, 2), les éléments 1 et 2 du tableau vont être inversés
+# [4, 2, 12, 32, 90]
+# fin des boucles j
+
+
+# TOUR DE BOUCLE numéro 4 de i (i = 3)
+
+# TOUR DE BOUCLE numéro 1 de j (j=0) (borne max ici 5 - 3 -1 => 1, donc on s'arrête à j = 0) (déjà dernier tour)
+# if tab[j] > tab[j + 1]: => if tab[0] > tab[1] => if 4 > 2, cette condition renvoie true, je rentre dans le if
+# permutation(tab, j, j+ 1) => permutation([4, 2, 12, 32, 90], 0, 1), les éléments 0 et 1 du tableau vont être inversés
+# [2, 4, 12, 32, 90]
+# fin des boucles j
+
+# TOUR DE BOUCLE numéro 5 de i (i =4) (dernier tour)
+
+
+# ON NE PEUT PAS RENTRER DANS LA BOUCLE J => len(tab) - i - 1 => 5 - 4 - 1 => 0, le début c'est 0 et à la fin c'est zéro donc on
+# ne peut pas rentrer dans la boucle j sur ce tour de boucle i et le tableau est [2, 4, 12, 32, 90], donc il est trié !
+
+
+
+
+
+
+
+
+
+
+
+# Suite (à part, code batard exécuté à la main)
 
 # to_permute = [190, 89, 2, 3]
 # permutation(to_permute, 0, 1)
