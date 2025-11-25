@@ -55,6 +55,7 @@ from random import randint
 from time import time
 from matplotlib import pyplot as plt
 import sys
+from listechainee.linkedlist import Linked_list
 sys.setrecursionlimit(100000)
 
 # Permutation
@@ -128,6 +129,27 @@ def quick_sort(tab, first_index, last_index):
         pivot = partitionner(tab, first_index, last_index, pivot)
         quick_sort(tab, first_index, pivot -1)
         quick_sort(tab, pivot + 1, last_index)
+
+
+# Tri par liste chainée
+
+
+
+
+
+
+def sort_by_linked_list(tab:list):
+    linked_list = Linked_list()
+    for elt in tab:
+        linked_list.insert_sorted_value(elt)
+    tab.clear()
+    current_node = linked_list.head
+    while current_node !=None:
+        tab.append(current_node.value)
+        current_node = current_node.next
+
+
+
 
 
 
@@ -322,8 +344,25 @@ for i in range (min, max, step):
     for i in range(len(tab_unsorted) -5, len(tab_unsorted)):
         print(tab_unsorted[i], end=" ")
     print(" ")
-
-
 plt.plot(X,Y,label='tri rapide')
+
+Y = []
+
+print("debut tri par liste chainée")
+
+for i in range (min, max, step):
+    print(i, ":", end=" ", flush=True)
+    tab_unsorted = [randint(0,i//2) for _ in range(i)]
+    start = time()
+    f = sort_by_linked_list(tab_unsorted)
+    stop = time()
+    Y.append(stop - start)
+    for i in range(5):
+        print(tab_unsorted[i], end=" ")
+    for i in range(len(tab_unsorted) -5, len(tab_unsorted)):
+        print(tab_unsorted[i], end=" ")
+    print(" ")
+
+plt.plot(X,Y,label='tri par liste chainée')
 plt.legend()
 plt.show()
