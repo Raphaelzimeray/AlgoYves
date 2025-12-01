@@ -134,10 +134,6 @@ def quick_sort(tab, first_index, last_index):
 # Tri par liste chainée
 
 
-
-
-
-
 def sort_by_linked_list(tab:list):
     linked_list = Linked_list()
     for elt in tab:

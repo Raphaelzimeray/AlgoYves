@@ -151,4 +151,14 @@ class Linked_list:
 
     # je fourni une liste non triée(tableau classique pas liste chainée), et ca retourne une liste triée.
 
-    
+    def reverse(self):
+        if self.is_empty():
+            print("la liste est vide")
+        current_node = self.head
+        prec_node = None
+        while current_node !=None:
+            current_node_next = current_node.next
+            current_node.next = prec_node
+            prec_node = current_node
+            current_node = current_node_next
+        self.head = prec_node

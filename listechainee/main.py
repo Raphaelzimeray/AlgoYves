@@ -73,5 +73,11 @@ list2 = Linked_list()
 
 for _ in range(20):
     list2.insert_sorted_value(randint(0, 100))
-    
+
+list2.display()
+
+print("Voici la liste inversée \n")
+
+list2.reverse()
+
 list2.display()
