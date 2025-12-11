@@ -254,6 +254,8 @@ print("test de is prime", is_prime(80))
 
 # Exercice 14 : Code Wars : Tiling Rectangles With squares
 
+
+
 def num_tiles(width,height):
     if width == 0 or height == 0:
         return 0
@@ -264,11 +266,11 @@ def num_tiles(width,height):
     if width < height:
         min_size = width
         max_size = height
-    if height < width:
+    else:
         min_size = height
         max_size = width
     power = 0
-    while 2 ** power < min_size:
+    while 2 ** power <= min_size:
         power +=1
     size_of_square = 2 ** (power-1)
     number_of_squares = max_size // size_of_square

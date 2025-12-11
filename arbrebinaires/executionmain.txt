@@ -1,0 +1,42 @@
+Execution à la main de profondeur avec un arbre de profondeur 4, et qui comporte 8 noeuds
+
+EXECUTION 1 => root.profondeur()
+on est sur le noeud root (ici 5),  if not self.right and not self.left: cette condition renvoie false
+parce que self.right et self.left existent, et root à deux sous arbres,
+je passe au else.
+right_prof = 0
+left_prof = 0
+if self.right: => ici il y a bien un sous arbre droit, je rentre dans le if
+right_prof = self.right.profondeur() => right_prof = l'appel de la fonction profondeur sur le sous arbre droit (ici le noeud racine à pour valeur 7)
+
+RECURSION 1.1 - EXECUTION 2.1 => self.right.profondeur()
+if not self.right and not self.left: c'est pas cas, il a deux sous arbres
+right_prof = 0
+left_prof = 0
+if self.right: => cette condition renvoie true
+je rentre dans le if
+right_prof = self.right.profondeur() => self.right.profondeur(), l'appel de la fonction profondeur sur le sous arbre droit (ici le noeud 8)
+
+RECURSION 1.1.1 - EXECUTION 2.1.1 => self.right.profondeur()
+if not self.right and not self.left: c'est le cas, je rentre
+je return 1
+
+RETOUR RECURSION 1.1 - EXECUTION 2.1 =>  self.right.profondeur()
+je suis fixé sur le resultat de right_prof de recursion 1.1 donc ca fait 1
+je continue a executer le code
+if self.left: => c'est vrai donc je rentre dans le if
+left_prof = self.left.profondeur()
+l'appel de la fonction profondeur sur le sous arbre gauche (ici le noeud6)
+
+RECURSION 1.1.2 - EXECUTION 2.1.2 => self.right.profondeur()
+if not self.right and not self.left: c'est le cas, je rentre
+je return 1
+
+RETOUR RECURSION 1.1 - EXECUTION 2.1 => self.right.profondeur()
+je suis fixé sur le resultat de left_prof, c'est 1
+je peux passer à la dernière ligne de la fonction avec le return
+return 1 + max(right_prof, left_prof)
+return 1 + 1 = 2
+
+RETOUR EXECUTION 1 =>
+je suis fixé sur la valeur de right_prof qui est 2
