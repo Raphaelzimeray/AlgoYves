@@ -56,6 +56,7 @@ from time import time
 from matplotlib import pyplot as plt
 import sys
 from listechainee.linkedlist import Linked_list
+from arbrebinaires.binary_tree import *
 sys.setrecursionlimit(100000)
 
 # Permutation
@@ -143,6 +144,15 @@ def sort_by_linked_list(tab:list):
     while current_node !=None:
         tab.append(current_node.value)
         current_node = current_node.next
+
+
+# Tri par arbre binaire
+
+def sort_by_binary_tree(tab:list):
+    abr = Node(tab[0])
+    for elt in tab[1:]:
+        abr.insert_element(elt)
+    return abr.get_list_infixe()
 
 
 
@@ -272,7 +282,7 @@ def sort_by_linked_list(tab:list):
 
 
 min = 1000
-max = 20000
+max = 40000
 step = 1000
 
 X = [x for x in range(min, max, step)]
@@ -306,25 +316,25 @@ Y = []
 # plt.plot(X,Y,label='tri à bulle v2')
 
 
-print("debut tri fusion")
+# print("debut tri fusion")
 
-for i in range (min, max, step):
-    print(i, ":", end=" ", flush=True)
-    tab_unsorted = [randint(0,i//2) for _ in range(i)]
-    start = time()
-    f = triFusion(tab_unsorted)
-    stop = time()
-    Y.append(stop - start)
-    for i in range(5):
-        print(f[i], end=" ")
-    print("...", end=" ")
-    for i in range(len(f) -5, len(f)):
-        print(f[i], end=" ")
-    print(" ")
-plt.plot(X,Y,label='tri Fusion')
+# for i in range (min, max, step):
+#     print(i, ":", end=" ", flush=True)
+#     tab_unsorted = [randint(0,i//2) for _ in range(i)]
+#     start = time()
+#     f = triFusion(tab_unsorted)
+#     stop = time()
+#     Y.append(stop - start)
+#     for i in range(5):
+#         print(f[i], end=" ")
+#     print("...", end=" ")
+#     for i in range(len(f) -5, len(f)):
+#         print(f[i], end=" ")
+#     print(" ")
+# plt.plot(X,Y,label='tri Fusion')
 
 
-Y = []
+# Y = []
 
 print("debut tri rapide")
 
@@ -342,23 +352,44 @@ for i in range (min, max, step):
     print(" ")
 plt.plot(X,Y,label='tri rapide')
 
+# Y = []
+
+# print("debut tri par liste chainée")
+
+# for i in range (min, max, step):
+#     print(i, ":", end=" ", flush=True)
+#     tab_unsorted = [randint(0,i//2) for _ in range(i)]
+#     start = time()
+#     sort_by_linked_list(tab_unsorted)
+#     stop = time()
+#     Y.append(stop - start)
+#     for i in range(5):
+#         print(tab_unsorted[i], end=" ")
+#     for i in range(len(tab_unsorted) -5, len(tab_unsorted)):
+#         print(tab_unsorted[i], end=" ")
+#     print(" ")
+
+# plt.plot(X,Y,label='tri par liste chainée')
+
+
+
 Y = []
 
-print("debut tri par liste chainée")
+print("debut tri par arbre binaire de recherche")
 
 for i in range (min, max, step):
     print(i, ":", end=" ", flush=True)
     tab_unsorted = [randint(0,i//2) for _ in range(i)]
     start = time()
-    f = sort_by_linked_list(tab_unsorted)
+    tab_sorted = sort_by_binary_tree(tab_unsorted)
     stop = time()
     Y.append(stop - start)
     for i in range(5):
-        print(tab_unsorted[i], end=" ")
+        print(tab_sorted[i], end=" ")
     for i in range(len(tab_unsorted) -5, len(tab_unsorted)):
-        print(tab_unsorted[i], end=" ")
+        print(tab_sorted[i], end=" ")
     print(" ")
 
-plt.plot(X,Y,label='tri par liste chainée')
+plt.plot(X,Y,label='tri par arbre binaire de recherche')
 plt.legend()
 plt.show()

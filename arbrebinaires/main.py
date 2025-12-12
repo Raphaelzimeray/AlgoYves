@@ -15,19 +15,6 @@ def sorted_list(unsorted_list:list):
 
 
 
-# Création d'un ABR
-# root = Node(5)
-# root.left = Node(3)
-# root.right = Node(7)
-# root.left.left = Node(2)
-# root.left.right = Node(4)
-# root.right.left = Node(6)
-# root.right.right = Node(8)
-# root.left.left.left = Node(1)
-
-# # Affichage élégant
-# print(root)
-# seed(42)
 
 root = Node(5)
 root.left = Node(3)

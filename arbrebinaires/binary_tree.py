@@ -92,7 +92,7 @@ class Node:
                 self.left = Node(num)
             else:
                 self.left.insert_element(num)
-        elif num > self.value:
+        elif num >= self.value:
             if not self.right:
                 self.right = Node(num)
             else:
@@ -111,4 +111,5 @@ class Node:
         _get_list_infixe(self)
         return list_infixe
 
-
+    # comment faire un affichage en largeur
+    # comment obtenir la somme des éléments
