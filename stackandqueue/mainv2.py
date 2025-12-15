@@ -148,7 +148,7 @@ def check_numeric_syntax(expression:str) -> bool:
         if char in tags:
             print("je rentre dans ce if ?")
             print(tags.get(char))
-            if tags.get(char) != pile_tags.get_top():
+            if tags[char] != pile_tags.get_top():
                 return False
             pile_tags.unstack()
     return pile_tags.is_empty()

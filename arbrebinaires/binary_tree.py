@@ -113,3 +113,31 @@ class Node:
 
     # comment faire un affichage en largeur
     # comment obtenir la somme des éléments
+    def sum_of_elements(self) -> int:
+        if not self.right and not self.left:
+            return self.value
+        else:
+            right_sum = 0
+            left_sum = 0
+            if self.right:
+                right_sum = self.right.sum_of_elements()
+            if self.left:
+                left_sum = self.left.sum_of_elements()
+            return self.value + right_sum + left_sum
+
+    def print_largeur(self):
+        def _print_largeur(l:list):
+            if l:
+                node = l.pop(0)
+                print(node.value)
+            if node.left:
+                l.append(node.left)
+            if node.right:
+                l.append(node.right)
+            _print_largeur(l)
+
+        list_print = []
+        list_print.append(self)
+        _print_largeur(list_print)
+
+    # affichage en profondeur (5, 3, 2, 1)

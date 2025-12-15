@@ -37,11 +37,13 @@ print("Test de la présence de 4 dans l'arbre :", root.is_in_tree(4))
 print("Test de la présence de 10 dans l'arbre :", root.is_in_tree(10))
 
 
-root2 = Node(10)
-for _ in range(15):
-    root2.insert_element(randint(0, 20))
+root2 = Node(5)
+for _ in range(5):
+    root2.insert_element(randint(0, 10))
 
 root2.display_infixe()
+
+print("\nSomme des valeurs de root2", root2.sum_of_elements())
 
 # root2.get_list_infixe()
 

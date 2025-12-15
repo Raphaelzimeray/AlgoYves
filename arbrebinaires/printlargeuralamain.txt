@@ -1,0 +1,80 @@
+EXECUTION 1 (la seule) de print_largeur(self) => c'est le noeud root de l'arbre
+
+On passe en 139, on crée un liste vide list_print = [] qui va stocker les noeuds de chaque étage
+list_print.append(self) => on rajoute le noeud root dans la liste
+ _print_largeur(list_print) => on appelle la fonction récursive EXECUTION 1
+
+EXECUTION 1
+
+_print_largeur([node(5)]):
+if l => on renvoie true car la liste n'est pas vide
+node = le premier élément de la liste qu'on retire et qu'on met dans node
+la liste est donc vide
+node = l.pop(0)
+node = Node(5)
+print(node.value) => j'affiche 5
+if node.left: => ici ca renvoie true, on a le noeud 3
+l.append(node.left) on met le noeud de gauche dans la liste
+l = [node(3)] ici
+if node.right: => ca renvoie true2
+on rajoute le noeud 7 dans la liste
+l = [node(3), node(7)]
+
+_print_largeur(l) => _print_largeur([node(3), node(7)])
+
+
+RECURSION 1 - EXECUTION 2 de _print_largeur
+_print_largeur([node(3), node(7)])
+if l: => true
+node = l.pop(0)
+node = Node(3)
+print(node.value) => j'affiche 3
+if node.left: => cette condition renvoie true
+l.append(node.left) => on rajoute le noeud de gauche à la liste
+l = [node(7), node(2)]
+if node.right: => true
+l.append(node.right)
+liste à ce stade :
+l = [node(7), node(2), node(4)]
+
+_print_largeur(l) => _print_largeur([node(7), node(2), node(4)])
+
+RECURSION 2 - EXECUTION 3 de _print_largeur
+_print_largeur([node(7), node(2), node(4)])
+
+if l: => ca renvoie true
+node = l.pop(0)
+node = Node(7)
+print(node.value) => on affiche 7
+if node.left: => True
+l.append(node.left)
+l = [node(2), node(4), node(6)]
+if node.right: => True
+l.append(node.right)
+l = [node(2), node(4), node(6), node(8)]
+
+_print_largeur(l) => _print_largeur([node(2), node(4), node(6), node(8)])
+
+
+RECURSION 3 - EXECUTION 4 de _print_largeur
+_print_largeur([node(2), node(4), node(6), node(8)])
+
+if l: => true
+node = l.pop(0)
+node = node(2)
+print(node.value) => on affiche 2
+if node.left: => true
+l.append(node.left) =>
+l = [node(4), node(6), node(8), node(1)]
+if node.right: => false
+on rentre pas
+
+_print_largeur(l) =>  _print_largeur([node(4), node(6), node(8), node(1)])
+
+RECURSION 4 - EXECUTION 5
+
+pour les derniers qui sont des feuilles sans sous arbre, on ne fait que d'afficher leurs valeur
+
+donc on va afficher 4, 6, 8, 1
+
+au total on aura affiché l'arbre
