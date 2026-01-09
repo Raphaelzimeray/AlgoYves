@@ -69,7 +69,6 @@ class Linked_list:
 
 
 
-
 # ecrire une fonction qui retourne le premier indice d'une valeur dans la liste sachant que
 # le premier maillon à pour indice 0. Si la valeur n'est pas dans la liste, ca retourne -1
 

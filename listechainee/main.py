@@ -15,6 +15,8 @@ for i in range(10):
 
 list1.display()
 
+list1.display_rec()
+
 
 print("nombre d'éléments dans la liste chainée ", list1.length())
 
