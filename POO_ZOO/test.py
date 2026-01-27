@@ -1,4 +1,5 @@
 from Animal import *
+from Enclos import *
 
 
 a1 = Animal("Marty", "m", 300, "Zèbre", 5 * 365)
@@ -56,3 +57,21 @@ a4.nourrir()
 bb = a3.reproduction(a4)
 
 print(bb.description())
+
+print("remplissage et création de l'enclos 1")
+
+enclos_1 = Enclos(10, "enclos1")
+
+enclos_1.ajoute(a1)
+
+enclos_1.ajoute(a2)
+
+enclos_1.ajoute(a3)
+
+enclos_1.ajoute(a4)
+
+enclos_1.description()
+
+enclos_1.reproduction()
+
+enclos_1.description()

@@ -8,6 +8,8 @@ class Animal:
         self.espece = espece
         self.age = age
         self.faim = 5
+        self.is_reproduced = False
+
 
     def description(self):
         if self.sexe == "m":
