@@ -1,6 +1,15 @@
 from random import choice
 
 class Animal:
+    ESPECES_INCOMPATIBLES = {
+        'zèbre':('lion','crocodile'),
+        'hippopotame': 'lion',
+        'gazelle':('lion','crocodile'),
+        'crocodile':('zèbre','gazelle'),
+        'lion':('zèbre','hippopotame','gazelle','crocodile')
+    }
+    identifiant = 1
+
     def __init__(self, nom:str, sexe:str, poids:int, espece:str, age:int):
         self.nom = nom
         self.sexe = sexe
@@ -9,6 +18,8 @@ class Animal:
         self.age = age
         self.faim = 5
         self.is_reproduced = False
+        self.id = Animal.identifiant
+        Animal.identifiant +=1
 
 
     def description(self):
@@ -33,3 +44,6 @@ class Animal:
         bb_espece = self.espece
         bb_age = 0
         return Animal(bb_name, bb_sexe, bb_poids, bb_espece, bb_age)
+
+    def compatibilite(self, other:'Animal') -> bool:
+        return other.espece not in Animal.ESPECES_INCOMPATIBLES[self.espece]

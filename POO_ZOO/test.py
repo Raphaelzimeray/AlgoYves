@@ -1,5 +1,6 @@
-from Animal import *
-from Enclos import *
+# from Animal import *
+# from Enclos import *
+from Zoo import *
 
 
 a1 = Animal("Marty", "m", 300, "Zèbre", 5 * 365)
@@ -75,3 +76,10 @@ enclos_1.description()
 enclos_1.reproduction()
 
 enclos_1.description()
+
+
+zooo_1 = Zoo("Nice", [enclos_1])
+
+zooo_1.add_animal_in_zoo(Animal("Jean Michel", "m", 3, "Lapin", 5 * 365))
+
+zooo_1.description()

@@ -20,6 +20,9 @@ class Enclos:
 
     def ajoute(self, a:Animal)->bool:
         if not self.est_plein():
+            for animal in self.list_animaux:
+                if not a.compatibilite(animal):
+                    return False
             self.list_animaux.append(a)
             return True
         return False

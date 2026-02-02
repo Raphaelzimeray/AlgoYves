@@ -22,3 +22,26 @@ class Zoo:
                     age_max = animal.age
                     oldest_animal = animal
         return oldest_animal
+
+    def pass_un_jour(self)->None:
+        for enclos in self.content:
+            animaux_morts = []
+            for animal in enclos.list_animaux:
+                animal.age +=1
+                animal.faim +=2
+                if animal.faim > 10:
+                    animaux_morts.append(animal)
+                else:
+                    animal.nourrir()
+            for animal_mort in animaux_morts:
+                enclos.list_animaux.remove(animal_mort)
+            enclos.reproduction()
+
+
+    def description(self)->None:
+        print("\nZoo de ", self.city)
+
+        for enclos in self.content:
+            enclos.description()
+
+# ne pas supprimer un élément du tableau qu'on est en train de parcourir
