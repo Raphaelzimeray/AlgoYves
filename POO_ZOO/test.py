@@ -3,9 +3,9 @@
 from Zoo import *
 
 
-a1 = Animal("Marty", "m", 300, "Zèbre", 5 * 365)
+a1 = Animal("Marty", "m", 300, "zèbre", 5 * 365)
 
-a2 = Animal("Gloria", "f", 1500, "Hippopotame", 7 * 356)
+a2 = Animal("Gloria", "f", 1500, "hippopotame", 7 * 356)
 
 
 a2.poids -= 50
@@ -33,7 +33,7 @@ print("test de la faim de gloria après son repas", a2.faim)
 # Exerice 3
 
 # ici, le voir comme un alias / surnom donné à "a", et pas la création d'un nouvel objet, ou d'une nouvelle instance
-a = Animal("Melman", 'm', 1000,"girafe",365*8)
+a = Animal("Melman", 'm', 1000,"hippopotame",365*8)
 
 b = a
 
@@ -45,10 +45,10 @@ print(a.poids)
 # Exercice 6
 
 
-a3 = Animal("Emilie", "f", 350, "Zèbre", 5 * 365)
+a3 = Animal("Emilie", "f", 290, "zèbre", 5 * 365)
 
 
-a4 = Animal("Julien", "m", 500, "Zèbre", 5 * 365)
+a4 = Animal("Julien", "m", 200, "zèbre", 5 * 365)
 
 
 a3.nourrir()
@@ -80,6 +80,12 @@ enclos_1.description()
 
 zooo_1 = Zoo("Nice", [enclos_1])
 
-zooo_1.add_animal_in_zoo(Animal("Jean Michel", "m", 3, "Lapin", 5 * 365))
+zooo_1.add_animal_in_zoo(Animal("Jean Michel", "m", 3, "lapin", 5 * 365))
 
 zooo_1.description()
+
+print("Création aléatoire de 5 animaux")
+
+for i in range(5):
+    a = Animal.animal_random_creation()
+    print(a.description())
