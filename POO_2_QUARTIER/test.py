@@ -50,3 +50,22 @@ for b in quartier_1.list_batiments:
 print("Test du display category")
 
 quartier_1.display_category(2)
+
+# test fonction other
+
+print("Test de la fonction comparaison ", batiment_1.comparer(maison_1))
+
+print("Test de la fonction comparaison ", batiment_1.comparer(immeuble_1))
+
+print("Test de la fonction comparaison ", immeuble_1.comparer(batiment_1))
+
+
+# test du plus grand batiment du quartier
+
+
+print("test du plus grand batiment du quartier 1", quartier_1.plus_grand_batiment())
+
+print("test du plus grand batiment du quartier 1", quartier_1.plus_grand_batiment_2())
+
+print("test du plus grand batiment du quartier 1", quartier_1.plus_grand_batiment_3())
+

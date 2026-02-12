@@ -14,3 +14,11 @@ class Batiment:
             return 2
         else:
             return 3
+
+    # comparer la taille
+
+    def comparer(self, other:'Batiment') -> 'Batiment':
+        if self.surface > other.surface:
+            return self
+        else:
+            return other
